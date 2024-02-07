@@ -21,13 +21,26 @@ module lzw (
   logic [7:0] counter, next_counter;
   logic [7:0] CALC_counter, next_CALC_counter;
   logic [31:0] sps;
-  logic [31:0] str;
-  logic [31:0][11:0] dictionary, next_dictionary;
+  logic [31:0] str, next_str;
+  logic [100000:0][11:0] dictionary, next_dictionary;
   logic [11:0] dictionary_size, next_dictionary_size;
   logic [11:0] symbol;
   logic [13:0][11:0] compressed, next_compressed; 
   
   integer i;
+
+  function logic [11:0] hash_24_to_12(logic [23:0] value);
+    logic [11:0] hashed_value;
+    int sum = 0;
+    foreach (value[i])
+        sum += value[i];
+    hashed_value = sum % 4096;
+    return hashed_value;
+endfunction
+
+  logic [11:0] sps_hash;
+
+  assign sps_hash = hash_24_to_12(sps[23:0]);
 
   always_ff @ (posedge clk_i or posedge reset_i) begin
     if (reset_i) begin
@@ -76,6 +89,7 @@ module lzw (
       CALC_counter <= next_CALC_counter;
       counter <= next_counter;
       compressed <= next_compressed;
+      str <= next_str;
     end
   end
   
@@ -92,10 +106,10 @@ module lzw (
       end
       CALC: begin
         if (CALC_counter == 14) next_state = DONE;
-        symbol = text[counter];
+        symbol = text[CALC_counter];
         sps = (str << 8) + symbol;
         if(dictionary[sps] != 0) begin
-          str = sps;
+          next_str = sps;
           next_state = CALC;
         end
         else begin
@@ -103,7 +117,7 @@ module lzw (
           next_counter = counter + 1;
           next_dictionary[sps] = dictionary_size;
           next_dictionary_size = dictionary_size + 1;
-          str = symbol;
+          next_str = symbol;
         end
         next_CALC_counter = CALC_counter + 1;
       end
