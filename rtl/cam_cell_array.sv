@@ -1,0 +1,143 @@
+module cam_cell_array #(parameter CAM_WIDTH = 8, parameter NUM_CELL = 12)
+ (
+  input clk, rst, en,
+  input [CAM_WIDTH-1:0] search_key, 
+  output logic [$clog2(NUM_CELL)-1:0] cam_out,
+  output match_f
+);
+
+  // Create FSM to do control logic?
+  // Register/FIFO to track current empty index/cell
+	// Keep track of cam full using two pointers
+  //Move writing/reading logic to cell array
+  reg [$clog2(NUM_CELL)-1:0] cam_full;
+  wire cam_f = (&cam_full)
+
+  reg [$clog2(NUM_CELL)-1:0] match_found;
+  wire match_f = (|match_found);
+
+  genvar i;
+  generate
+    for (i = 0; i< NUM_CELL; i++) begin: cell_instances
+	cam_cell cell_inst (
+	  .clk(clk),
+	  .rst(rst),
+	  .en(en),
+	  .search_key(search_key),
+	  .cam_out(cam_out[i]),
+	  .cam_full(valid[i]),
+	  .match_found(match_found[i])
+	);
+    end
+  endgenerate
+
+endmodule
+
+
+/*
+  //localparam CAM_WIDTH = 8;
+  //localparam NUM_CELL = 16;
+
+  // Include verilog builtin for taking log base 2
+  //`include "clog2_function.vh"
+
+  logic [CAM_WIDTH-1:0] cam_mem; //[NUM_CELL-1:0];
+  logic [$clog2(NUM_CELL)-1:0] cam_id = 1; //[NUM_CELL-1:0];
+  logic [NUM_CELL-1:0] match_flag;
+  logic [NUM_CELL-1:0] valid, val_comb;
+  logic cam_out_valid;
+
+  always_ff @(posedge clk or negedge rst) begin
+    if (!rst) begin 	//ACTIVE LOW RST
+      //match_flag <= '0;
+	valid <= '0;
+	cam_mem <= 'z;
+	cam_out <= 'z;
+    end
+    else if (match_flag && en) begin	// If we find a match output the cam_id
+	cam_out <= cam_id;
+    end
+    else if (!match_flag && en) begin	// If we don't find a match, update the cam memory, set valid bit, and output cam_id
+	cam_out <= cam_id;
+	cam_mem = search_key;
+	valid <= '1;
+    end
+  end
+
+// Try creating just one cell first, then worry about the for loops that look through all the cells
+  always_comb begin
+    if (en && rst) begin //If enabled and not being reset, match flag should be actively signaling a match
+	if ((search_key == cam_mem) && valid)
+	  match_flag = 1'b1;
+	else
+	  match_flag = 1'b0;
+    end
+  end  
+/*
+  always_comb begin
+    int i;
+    for (i = 0; i < NUM_CELL; i++) begin
+      if (read_en || write_en) begin
+        if (search_key == cam_mem[i])
+          match_flag[i] = 1'b1;
+        else
+          match_flag[i] = 1'b0;
+      end
+    end
+  end
+*/
+
+/*  always_ff @(posedge clk) begin
+    if (match_flag && en)
+	cam_out <= cam_id;
+    else if (en) begin
+	cam_out <= 'z;
+	cam_mem = search_key;
+	valid <= 1'b1;
+    end else
+	cam_out <= 'z;
+  end
+*/
+ /* always_comb begin
+    int i;
+    for (i = 0; i < NUM_CELL; i++) begin
+      if (match_flag[i] && read_en) begin
+        cam_out = cam_mem[i];
+	break;
+      end
+      else if (i == NUM_CELL - 1)
+	cam_out = 'z;
+    end
+  end
+*/
+/*always_comb begin
+  case (cam_out_valid)
+	1: cam_out = 
+*/
+
+/*
+  genvar i; // Loop iterator for generate statement
+
+  generate
+    for (i = 0; i < NUM_CELL; i++) begin
+	cam_cell ca(
+
+  generate
+    for (i = 0; i < NUM_CELL; i++) begin
+      always_ff @(posedge clk or negedge rst) begin
+        if ((!cam_full) && write_en && (!match_found) && !(valid[j])) begin
+          cam_mem[j] <= search_key;
+          val_comb[j] <= 1'b1;   
+        end
+      end
+    end
+  endgenerate
+
+  // If any bit in match flag is 1, assert match_found
+  assign match_found = (|match_flag);
+  // If all of the cells are valid=1 (occupied), then assert cam_full (no more open cells!)
+  assign cam_full = (&valid);
+
+endmodule
+
+*/

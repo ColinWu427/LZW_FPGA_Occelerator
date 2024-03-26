@@ -1,0 +1,154 @@
+# Compile of conflict_table.sv was successful.
+# Compile of lfsr_64_bit.sv was successful.
+vsim -gui work.lfsr_64_bit_tb
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 22:01:39 on Mar 25,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlftfsxw85".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftfsxw85
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(36)
+#    Time: 140 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 36
+# Compile of lfsr_64_bit_tb.sv was successful.
+vsim -gui work.lfsr_64_bit_tb
+# End time: 22:05:04 on Mar 25,2024, Elapsed time: 0:03:25
+# Errors: 0, Warnings: 3
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 22:05:04 on Mar 25,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlftbdgx0f".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftbdgx0f
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(37)
+#    Time: 150 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 37
+# Compile of lfsr_64_bit.sv was successful.
+vsim -gui work.lfsr_64_bit_tb
+# End time: 12:01:17 on Mar 26,2024, Elapsed time: 13:56:13
+# Errors: 0, Warnings: 3
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 12:01:17 on Mar 26,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlft1e74i4".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft1e74i4
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(37)
+#    Time: 150 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 37
+# Compile of lfsr_64_bit.sv failed with 1 errors.
+# Compile of lfsr_64_bit.sv failed with 1 errors.
+# Compile of lfsr_64_bit.sv was successful.
+vsim -gui work.lfsr_64_bit_tb
+# End time: 12:10:03 on Mar 26,2024, Elapsed time: 0:08:46
+# Errors: 0, Warnings: 3
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 12:10:03 on Mar 26,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlftkk0qb0".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftkk0qb0
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(37)
+#    Time: 150 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 37
+# Compile of lfsr_64_bit.sv was successful.
+vsim -gui work.lfsr_64_bit_tb
+# End time: 12:11:26 on Mar 26,2024, Elapsed time: 0:01:23
+# Errors: 0, Warnings: 3
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 12:11:26 on Mar 26,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlftfkxrr6".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftfkxrr6
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(37)
+#    Time: 150 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 37
+vsim -gui work.lfsr_64_bit_tb
+# End time: 12:13:24 on Mar 26,2024, Elapsed time: 0:01:58
+# Errors: 0, Warnings: 3
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 12:13:24 on Mar 26,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlftm4gwfv".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftm4gwfv
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(37)
+#    Time: 150 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 37
+# Compile of lfsr_64_bit.sv was successful.
+# Compile of lfsr_64_bit_tb.sv failed with 1 errors.
+# Compile of lfsr_64_bit_tb.sv was successful with warnings.
+# Compile of lfsr_64_bit_tb.sv failed with 1 errors.
+# Compile of lfsr_64_bit_tb.sv failed with 1 errors.
+# Compile of lfsr_64_bit_tb.sv was successful with warnings.
+vsim -gui work.lfsr_64_bit_tb
+# End time: 14:50:13 on Mar 26,2024, Elapsed time: 2:36:49
+# Errors: 0, Warnings: 3
+# vsim -gui work.lfsr_64_bit_tb 
+# Start time: 14:50:13 on Mar 26,2024
+# Loading sv_std.std
+# Loading work.lfsr_64_bit_tb
+# Loading work.lfsr_64_bit
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(14): [PCDPC] - Port size (12) does not match connection size (64) for port 'data_out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /lfsr_64_bit_tb/DUT File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv
+add wave -position insertpoint sim:/lfsr_64_bit_tb/DUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlft77fifn".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft77fifn
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv(37)
+#    Time: 150 ps  Iteration: 0  Instance: /lfsr_64_bit_tb
+# Break in Module lfsr_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/lfsr_64_bit_tb.sv line 37
+# End time: 14:53:27 on Mar 26,2024, Elapsed time: 0:03:14
+# Errors: 0, Warnings: 3
