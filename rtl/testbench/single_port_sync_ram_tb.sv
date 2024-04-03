@@ -1,16 +1,17 @@
 module single_port_sync_ram_tb();
 
   // Define parameters
-  parameter ADDR_WIDTH = 4;
-  parameter DATA_WIDTH = 32;
-  parameter DEPTH = 16;
+  parameter ADDR_WIDTH = 12;
+  parameter DATA_WIDTH = 64;
+  parameter DEPTH = 4096;
 
   // Declare signals
   reg clk;
   reg [ADDR_WIDTH-1:0] addr;
-  wire [DATA_WIDTH-1:0] data;
-  reg cs, we, oe;
-  reg [DATA_WIDTH-1:0] tb_data;
+  reg [DATA_WIDTH-1:0] data_in;
+  wire [DATA_WIDTH-1:0] data_out;
+  reg cs, we;
+  wire valid;
 
   // Instantiate the module under test
   single_port_sync_ram #(
@@ -20,47 +21,47 @@ module single_port_sync_ram_tb();
   ) dut (
     .clk(clk),
     .addr(addr),
-    .data(data),
+    .data_in(data_in),
+    .data_out(data_out),
     .cs(cs),
     .we(we),
-    .oe(oe)
+    .valid(valid)
   );
 
   // Clock generation
   always #5 clk = ~clk;
-
-  assign data = !oe ? tb_data : 'hz;
 
   // Test stimulus
   initial begin
     // Initialize signals
     clk = 0;
     addr = 0;
-    tb_data = 0;
     cs = 0;
     we = 0;
-    oe = 0;
 
     // Wait for a few cycles
     #10;
 
     // Write data to memory
-    addr = 2;
-    tb_data = 32'hABCDE123;
+    addr = 256;
+    data_in = 32'hABCDE123;
     cs = 1;
     we = 1;
     #10;
-    cs = 0;
-    we = 0;
 
     // Read data from memory
-    addr = 2;
+    addr = 256;
     cs = 1;
     we = 0;
-    oe = 1;
     #10;
+    addr = 1;
+    #10
+    addr = 10;
+    #10
+    addr = 63;
+    #10
+    addr = 257;
     cs = 0;
-    oe = 0;
 
     // Wait for some more cycles
     #10;
