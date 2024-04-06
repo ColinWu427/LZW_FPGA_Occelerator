@@ -5,7 +5,7 @@ module core_tb;
   reg rst;
 
 // Outputs
-  wire data_out;
+  wire [11:0] data_out;
 
 // Instantiate the system
   core dut (
@@ -18,7 +18,7 @@ module core_tb;
   always #5 clk = ~clk;
 
   initial begin
-    #200
+    #400
     $stop;
   end
 

@@ -27,16 +27,8 @@ module file_rom_tb;
     cs = 1;
 
     // Wait a few cycles
-    #100;
-
-    // Wait for end-of-file
-    repeat (100) begin
-      #10;
-      if (eof) begin
-        $display("End of File reached.");
-        $stop;
-      end
-    end
+    #150;
+    $stop;
   end
 
 endmodule

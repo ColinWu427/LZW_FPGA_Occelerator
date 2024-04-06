@@ -14,12 +14,18 @@ module file_rom
   reg [DATA_WIDTH-1:0] mem [DEPTH];
   reg valid_regs [DEPTH];
   reg [ADDR_WIDTH-1:0] entry_counter;
+  reg [DATA_WIDTH-1:0] tmp_data;
+  reg tmp_valid, tmp_eof;
 
 // Initialize memory
 // -> ABBABBBABBA
 // -> 65 66 66 65 66 66 66 65 66 66 65
   initial begin
-    entry_counter <= 0;
+    entry_counter <= 12'b111111111111;
+    tmp_data <= 0;
+    tmp_valid <= 0;
+    tmp_eof <= 0;
+
     mem[0] <= 65;
     mem[1] <= 66;
     mem[2] <= 66;
@@ -45,16 +51,23 @@ module file_rom
     valid_regs[11] <= 0;
   end
 
-  reg [DATA_WIDTH-1:0] tmp_data;
-  reg tmp_valid;
-
   always @ (posedge clk) begin
-    if (cs)
+// If entry counter reaches the last entry in the file, assert eof
+    if (entry_counter == 11) begin
+	tmp_data <= 0;
+	tmp_valid <= 0;
+	tmp_eof <= 1;
+    end
+    else if ((cs == 1) & (valid_regs[entry_counter] == 1)) begin
 	tmp_data <= mem[entry_counter];
 	tmp_valid <= valid_regs[entry_counter];
+	entry_counter <= entry_counter + 1;
     end
+    else
+	entry_counter <= entry_counter + 1;
+  end
 
-  assign data_out = cs ? tmp_data : 'hz;
-  assign valid = cs ? tmp_valid : 1'b0;
-  assign eof = cs & tmp_valid ? 1'b0 : 1'b1;
-endmodule
+  assign data_out = tmp_data;
+  assign valid = tmp_valid;
+  assign eof = tmp_eof
+endmodule 

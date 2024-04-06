@@ -14,12 +14,12 @@ module core
   reg [2:0] next_state;
 // Number of characters in current string
   reg [2:0] num_char;
+// Number of shift register cycles needed
+  reg [2:0] sr_cycles;
 // End of file tracker to show when the end of a file has been reached
   wire eof;
 // String being encoded
   reg [63:0] str;
-// Counter to iterate through file
-  reg [15:0] curr_bit;
 // Cycle counter for LFSR (may need to be longer if more cycles are needed)
   reg cycle_count;
 // Variable to mark when we have a valid hash from the LFSR
@@ -57,7 +57,7 @@ module core
   assign sr_data_in = rom_data_out;
 
 // Conflict Table 	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  reg ct_cs, ct_we, ct_full;
+  reg ct_cs, ct_we, ct_rst, ct_full;
   wire [DATA_WIDTH-1:0] ct_data;
   reg [HASH_WIDTH-1:0] ct_hash_in;
   wire match;
@@ -65,7 +65,7 @@ module core
 
  conflict_table #(DEPTH, DATA_WIDTH, HASH_WIDTH) CT (
     .clk(clk),
-    .rst(rst),
+    .rst(ct_rst),
     .cs(ct_cs),
     .we(ct_we),
     .match(match),
@@ -117,13 +117,31 @@ module core
 
 // Core Loop		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   initial begin
-    state = FETCH;
-    num_char = 0;
+    state <= FETCH;
+    next_state <= FETCH;
+
+    num_char <= 0;
+    sr_cycles <= 0;
+
+    ram_we <= 0;
+    ram_cs <= 0;
+
+    lfsr_cs <= 0;
+    lfsr_rst <= 0;
+
+    ct_cs <= 0;
+    ct_we <= 0;
+    ct_rst <= 0;
+
+    rom_cs <= 0;
+
+    shift <= 0;
 end
 
   always @ (posedge clk) begin
     state <= next_state;
-    if (!sr_full)
+// Kickstarting FETCH
+    if (!sr_full & rom_valid)
 	shift <= 1;
     else 
 	shift <= 0;
@@ -134,21 +152,32 @@ end
 	FETCH: begin
 		out <= 'hz;
 		ram_we <= 0;
-		ct_cs <= 1;
 		ct_we <= 0;
 // if there's no more file to encode change state to complete
-		if (eof)
+		if (eof & (next_8bytes == 0))
 		  next_state <= COMPLETE;
 // else if the next_8bytes shift register isn't full, wait for it to be full
 		else if (!sr_full)
 		  next_state <= FETCH;
-// else if there's more file left and we have a match in the conflict table and there's not already 8 chars in str, add the next char to our string and reset the LFSR
-		else if (!eof & match & num_char < 7) begin	
-		  next_state <= STR_INC;
+// else if we need to cycle our shift register, wait until the cycles are finished
+		else if (sr_cycles != 0) begin
+		  sr_cycles = sr_cycles - 1;
 		end
+// else if there's more file left and we have a match in the conflict table and there's not already 8 chars in str, add the next char to our string and reset the LFSR
+		else begin
+		  ct_cs <= 1;
+		  if (ct_cs & match & num_char < 7)
+		    next_state <= STR_INC;
 // else if there's more file left and we don't have a match in the conflict table and the hash is ready, change state to RAM_SEARCH
-		else if (!eof & !match & hash_valid)
-		  next_state <= RAM_SEARCH;
+		  else if (ct_cs & !match & hash_valid)
+		    next_state <= RAM_SEARCH;
+// If we only have a single character, we don't want to use the LFSR hash we want to use the character itself as the address
+		    if (num_char != 0)
+		  	ram_addr <= lfsr_data_out;
+		    else
+		  	ram_addr <= str[11:0];
+		    ram_cs <= 1;
+		end
 
 // If LFSR is in state 0 (reset) take it out of reset and use cs to cycle it
 // else If the top 3 bits of the LFSR output are all 0 keep cycling
@@ -169,18 +198,20 @@ end
 		end
 
 // If the shift register is not full (we don't have the next 8 bytes) we want to keep shifting in more bytes until it gets full
-		if (!sr_full)
+// if the shift register cycles reg is not zero, continue cycling until it is
+		if (!rom_valid) begin
+		  rom_cs <= 1;
+		end
+		else if ((!sr_full & rom_valid) | (sr_cycles != 0)) begin
 		  shift <= 1;
-		else
+		  rom_cs <= 1;
+		end
+		else begin
 		  shift <= 0;
+		  rom_cs <= 0;
+		end
 	    end
 	RAM_SEARCH: begin
-// If we only have a single character, we don't want to use the LFSR hash we want to use the character itself as the address
-		if (num_char != 0)
-		  ram_addr <= lfsr_data_out;
-		else
-		  ram_addr <= str[11:0];
-		ram_cs <= 1;
 // if the RAM data at our hash is valid and matches the input and there's not already 8 chars in str add the next char to our string and reset the LFSR
 // -> go back to FETCH state
 		if (ram_data_out == str & num_char < 7 & ram_valid) begin
@@ -236,7 +267,8 @@ end
 // Intermediary state for setting the string back to a single character and shifting in a new byte without disturbing writes
 	STR_DEC: begin
 		num_char <= 0;
-		shift <= 1;
+		sr_cycles <= num_char;
+		rom_cs <= 1;
 		lfsr_rst <= 0;
 		hash_valid <= 0;
 		ram_we <= 0;

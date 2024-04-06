@@ -5,19 +5,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	core_tb
 
-} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module single_port_sync_ram_tb
-
-Top level modules:
-	single_port_sync_ram_tb
-
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module file_rom
 
 Top level modules:
 	file_rom
+
+} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module single_port_sync_ram_tb
+
+Top level modules:
+	single_port_sync_ram_tb
 
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/cam_cell_array.sv} {0 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/cam_cell_array.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -34,19 +34,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	cam_cell
 
-} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module single_port_sync_ram
-
-Top level modules:
-	single_port_sync_ram
-
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module core
 
 Top level modules:
 	core
+
+} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module single_port_sync_ram
+
+Top level modules:
+	single_port_sync_ram
 
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/cam_cell_array_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/cam_cell_array_tb.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -76,19 +76,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	conflict_table_tb
 
-} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module shift_reg_64_bit_tb
-
-Top level modules:
-	shift_reg_64_bit_tb
-
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/lfsr_64_bit.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module lfsr_64_bit
 
 Top level modules:
 	lfsr_64_bit
+
+} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module shift_reg_64_bit_tb
+
+Top level modules:
+	shift_reg_64_bit_tb
 
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/conflict_table.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/conflict_table.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
