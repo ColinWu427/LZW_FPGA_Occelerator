@@ -5,7 +5,6 @@ module core
   )
   ( input clk,
     input rst,
-    input [127:0] file,
     output reg [HASH_WIDTH-1:0] out
   );
 
@@ -15,8 +14,8 @@ module core
   reg [2:0] next_state;
 // Number of characters in current string
   reg [2:0] num_char;
-// Tracker to show when the end of a file has been reached
-  wire more_file;
+// End of file tracker to show when the end of a file has been reached
+  wire eof;
 // String being encoded
   reg [63:0] str;
 // Counter to iterate through file
@@ -25,8 +24,37 @@ module core
   reg cycle_count;
 // Variable to mark when we have a valid hash from the LFSR
   reg hash_valid;
+
+// File ROM		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  reg [11:0] rom_addr;
+  wire [63:0] rom_data_out;
+  reg rom_cs, rom_valid;
+
+  file_rom #(DEPTH, DATA_WIDTH, HASH_WIDTH) ROM (
+    .clk(clk),
+    .data_out(rom_data_out),
+    .cs(rom_cs),
+    .valid(rom_valid),
+    .eof(eof)
+  );
+
+// Shift Reg		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Registers to hold the next 8 bytes for manipulation
-  reg [63:0] next_8bytes;
+  wire [63:0] next_8bytes;
+  wire [7:0] sr_data_in;
+  reg shift;
+  wire sr_full;
+
+  shift_reg_64_bit SHIFT_REG (
+    .clk(clk),
+    .data_in(sr_data_in),
+    .shift(shift),
+    .data_out(next_8bytes),
+    .reg_full(sr_full)
+  );
+
+// Assign the input to our shift register to the ROM output
+  assign sr_data_in = rom_data_out;
 
 // Conflict Table 	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   reg ct_cs, ct_we, ct_full;
@@ -72,7 +100,7 @@ module core
   reg [11:0] ram_addr;
   wire [63:0] ram_data_in;
   wire [63:0] ram_data_out;
-  reg ram_cs, ram_we, ram_oe, ram_valid;
+  reg ram_cs, ram_we, ram_valid;
 
   single_port_sync_ram RAM (
     .clk(clk),
@@ -90,11 +118,15 @@ module core
 // Core Loop		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   initial begin
     state = FETCH;
-  end
+    num_char = 0;
+end
 
   always @ (posedge clk) begin
     state <= next_state;
-    next_8bytes <= file[curr_bit+63:curr_bit];
+    if (!sr_full)
+	shift <= 1;
+    else 
+	shift <= 0;
   end
 
   always @ (posedge clk) begin
@@ -105,21 +137,25 @@ module core
 		ct_cs <= 1;
 		ct_we <= 0;
 // if there's no more file to encode change state to complete
-		if (!more_file)
+		if (eof)
 		  next_state <= COMPLETE;
+// else if the next_8bytes shift register isn't full, wait for it to be full
+		else if (!sr_full)
+		  next_state <= FETCH;
 // else if there's more file left and we have a match in the conflict table and there's not already 8 chars in str, add the next char to our string and reset the LFSR
-		else if (more_file & match & num_char < 7) begin	
+		else if (!eof & match & num_char < 7) begin	
 		  next_state <= STR_INC;
 		end
 // else if there's more file left and we don't have a match in the conflict table and the hash is ready, change state to RAM_SEARCH
-		else if (more_file & !match & hash_valid)
+		else if (!eof & !match & hash_valid)
 		  next_state <= RAM_SEARCH;
-// else If LFSR is in state 0 (reset) take it out of reset and use cs to cycle it
+
+// If LFSR is in state 0 (reset) take it out of reset and use cs to cycle it
 // else If the top 3 bits of the LFSR output are all 0 keep cycling
 // -> the value is in the range 0-255 which are not an allowable hash
 // -> those addresses are reserved for single ASCII and matching will need to be handled separately
 // else Once we have an allowed hash, assert hash_valid which will take us into RAM_SEARCH on the next clk cycle
-		else if (lfsr_state == 0) begin
+		if (lfsr_state == 0) begin
 		  lfsr_cs <= 1;
 		  lfsr_rst <= 1;
 		  hash_valid <= 0;
@@ -131,6 +167,12 @@ module core
     		else begin
 		  lfsr_cs <= 1;
 		end
+
+// If the shift register is not full (we don't have the next 8 bytes) we want to keep shifting in more bytes until it gets full
+		if (!sr_full)
+		  shift <= 1;
+		else
+		  shift <= 0;
 	    end
 	RAM_SEARCH: begin
 // If we only have a single character, we don't want to use the LFSR hash we want to use the character itself as the address
@@ -185,17 +227,16 @@ module core
 // Intermediary state for adding another character to the string without disturbing writes
 	STR_INC: begin
 		num_char <= num_char + 1;
-		curr_bit <= curr_bit + 8;
 		lfsr_rst <= 0;
 		hash_valid <= 0;
 		ram_we <= 0;
 		ct_we <= 0;
 		next_state <= FETCH;
 	    end
-// Intermediary state for setting the string back to a single character without disturbing writes
+// Intermediary state for setting the string back to a single character and shifting in a new byte without disturbing writes
 	STR_DEC: begin
 		num_char <= 0;
-		curr_bit <= curr_bit + 8;
+		shift <= 1;
 		lfsr_rst <= 0;
 		hash_valid <= 0;
 		ram_we <= 0;
@@ -232,4 +273,5 @@ module core
 	  str <= next_8bytes;
     endcase
   end
+
 endmodule

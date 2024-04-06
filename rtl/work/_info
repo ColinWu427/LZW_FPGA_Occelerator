@@ -128,6 +128,102 @@ r1
 !i113 1
 R5
 R6
+vcore
+R0
+!s110 1712433593
+!i10b 1
+!s100 6PTnkdm>^<PA9BlQ>A68;1
+IFh6QZ7o8AXB^26T68LK;G2
+R1
+!s105 core_sv_unit
+S1
+R2
+w1712433581
+8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv
+FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1712433593.000000
+!s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv|
+!i113 1
+R5
+R6
+vcore_tb
+R0
+!s110 1712434011
+!i10b 1
+!s100 D2lgflR>JDcNC3FN?1N9A1
+I_HJSKnHDF_2jhe[eWzO1j2
+R1
+!s105 core_tb_sv_unit
+S1
+R2
+w1712434007
+8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv
+FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1712434011.000000
+!s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv|
+!i113 1
+R5
+R6
+vfile_rom
+R0
+!s110 1712420531
+!i10b 1
+!s100 zR=@DMdaIYYa8O:@:L_O13
+I6435@RA=Be:RLc4JdfHZP1
+R1
+!s105 file_rom_sv_unit
+S1
+R2
+w1712420471
+8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv
+FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1712420531.000000
+!s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv|
+!i113 1
+R5
+R6
+vfile_rom_tb
+R0
+!s110 1712420749
+!i10b 1
+!s100 z[Pe:^RMEd8l?AmM_XYhY1
+IoJU56AGoYCEAPKbM_a7a:3
+R1
+!s105 file_rom_tb_sv_unit
+S1
+R2
+w1712420686
+8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv
+FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1712420749.000000
+!s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv|
+!i113 1
+R5
+R6
 vlfsr_64_bit
 R0
 !s110 1711561564
@@ -176,9 +272,57 @@ Z12 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive 
 !i113 1
 R5
 R6
+vshift_reg_64_bit
+R0
+!s110 1712430575
+!i10b 1
+!s100 4LX6ZdL0hac=^7Pg8GN5e2
+IUc4NjTCFWCiJ[5;7R]Teo1
+R1
+!s105 shift_reg_64_bit_sv_unit
+S1
+R2
+w1712430572
+8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/shift_reg_64_bit.sv
+FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/shift_reg_64_bit.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1712430575.000000
+!s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/shift_reg_64_bit.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/shift_reg_64_bit.sv|
+!i113 1
+R5
+R6
+vshift_reg_64_bit_tb
+R0
+!s110 1712431136
+!i10b 1
+!s100 YJ9V>7iTGPi[_78VR6jR92
+IbBH05H;0Yn7A[?bAzB6bQ3
+R1
+!s105 shift_reg_64_bit_tb_sv_unit
+S1
+R2
+w1712431129
+8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv
+FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1712431136.000000
+!s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv|
+!i113 1
+R5
+R6
 vsingle_port_sync_ram
 R0
-!s110 1712159875
+!s110 1712434048
 !i10b 1
 !s100 OVGC385;63^VNa321CfFe2
 I3PO4FV1:ThEj61K<l;`oh3
@@ -186,7 +330,7 @@ R1
 !s105 single_port_sync_ram_sv_unit
 S1
 R2
-w1712159870
+w1712160534
 8C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv
 FC:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv
 L0 1
@@ -194,7 +338,7 @@ R3
 r1
 !s85 0
 31
-!s108 1712159875.000000
+!s108 1712434048.000000
 !s107 C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/single_port_sync_ram.sv|
 !i113 1

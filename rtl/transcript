@@ -1,72 +1,165 @@
-# Compile of single_port_sync_ram.sv failed with 2 errors.
-# Compile of single_port_sync_ram.sv was successful.
-# Compile of single_port_sync_ram_tb.sv was successful.
-vsim -gui work.single_port_sync_ram_tb
-# vsim -gui work.single_port_sync_ram_tb 
-# Start time: 11:52:06 on Apr 03,2024
+# Compile of file_rom_tb.sv was successful.
+# Compile of file_rom.sv failed with 2 errors.
+# Compile of file_rom.sv was successful.
+vsim -gui work.file_rom_tb
+# vsim -gui work.file_rom_tb 
+# Start time: 12:19:48 on Apr 06,2024
 # Loading sv_std.std
-# Loading work.single_port_sync_ram_tb
-# Loading work.single_port_sync_ram
-add wave -position insertpoint sim:/single_port_sync_ram_tb/dut/*
+# Loading work.file_rom_tb
+# Loading work.file_rom
+add wave -position insertpoint sim:/file_rom_tb/dut/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
-#           Attempting to use alternate WLF file "./wlft4w8grx".
+#           Attempting to use alternate WLF file "./wlftfesmhc".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft4w8grx
+#           Using alternate file: ./wlftfesmhc
 run -all
-# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv(70)
-#    Time: 70 ps  Iteration: 0  Instance: /single_port_sync_ram_tb
-# Break in Module single_port_sync_ram_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv line 70
-# Compile of single_port_sync_ram_tb.sv was successful.
-vsim -gui work.single_port_sync_ram_tb
-# End time: 11:55:29 on Apr 03,2024, Elapsed time: 0:03:23
+# End of File reached.
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv(40)
+#    Time: 110 ps  Iteration: 0  Instance: /file_rom_tb
+# Break in Module file_rom_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv line 40
+# WARNING: No extended dataflow license exists
+vsim -gui work.file_rom_tb
+# End time: 12:21:58 on Apr 06,2024, Elapsed time: 0:02:10
+# Errors: 0, Warnings: 3
+# vsim -gui work.file_rom_tb 
+# Start time: 12:21:58 on Apr 06,2024
+# Loading sv_std.std
+# Loading work.file_rom_tb
+# Loading work.file_rom
+# Compile of file_rom.sv was successful.
+vsim -gui work.file_rom_tb
+# End time: 12:22:21 on Apr 06,2024, Elapsed time: 0:00:23
+# Errors: 0, Warnings: 0
+# vsim -gui work.file_rom_tb 
+# Start time: 12:22:21 on Apr 06,2024
+# Loading sv_std.std
+# Loading work.file_rom_tb
+# Loading work.file_rom
+add wave -position insertpoint sim:/file_rom_tb/dut/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlft8960kr".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft8960kr
+run -all
+# End of File reached.
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv(40)
+#    Time: 110 ps  Iteration: 0  Instance: /file_rom_tb
+# Break in Module file_rom_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv line 40
+# Load canceled
+# Compile of file_rom_tb.sv was successful.
+vsim -gui work.file_rom_tb
+# End time: 12:25:59 on Apr 06,2024, Elapsed time: 0:03:38
+# Errors: 1, Warnings: 2
+# vsim -gui work.file_rom_tb 
+# Start time: 12:25:59 on Apr 06,2024
+# Loading sv_std.std
+# Loading work.file_rom_tb
+# Loading work.file_rom
+add wave -position insertpoint sim:/file_rom_tb/dut/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlftg64yxb".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftg64yxb
+run -all
+# End of File reached.
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv(37)
+#    Time: 120 ps  Iteration: 0  Instance: /file_rom_tb
+# Break in Module file_rom_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv line 37
+# Compile of shift_reg_64_bit.sv failed with 1 errors.
+# Compile of shift_reg_64_bit.sv failed with 2 errors.
+# Compile of shift_reg_64_bit.sv failed with 2 errors.
+# Compile of shift_reg_64_bit.sv was successful.
+# Compile of shift_reg_64_bit_tb.sv was successful.
+vsim -gui work.shift_reg_64_bit_tb
+# End time: 15:10:02 on Apr 06,2024, Elapsed time: 2:44:03
 # Errors: 0, Warnings: 2
-# vsim -gui work.single_port_sync_ram_tb 
-# Start time: 11:55:29 on Apr 03,2024
+# vsim -gui work.shift_reg_64_bit_tb 
+# Start time: 15:10:02 on Apr 06,2024
 # Loading sv_std.std
-# Loading work.single_port_sync_ram_tb
-# Loading work.single_port_sync_ram
-add wave -position insertpoint sim:/single_port_sync_ram_tb/dut/*
+# Loading work.shift_reg_64_bit_tb
+# Loading work.shift_reg_64_bit
+add wave -position insertpoint sim:/shift_reg_64_bit_tb/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
-#           Attempting to use alternate WLF file "./wlftghs3kb".
+#           Attempting to use alternate WLF file "./wlftrjxnkf".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftghs3kb
+#           Using alternate file: ./wlftrjxnkf
 run -all
-# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv(70)
-#    Time: 70 ps  Iteration: 0  Instance: /single_port_sync_ram_tb
-# Break in Module single_port_sync_ram_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv line 70
-# Compile of single_port_sync_ram.sv was successful.
-vsim -gui work.single_port_sync_ram_tb
-# End time: 11:58:10 on Apr 03,2024, Elapsed time: 0:02:41
+# Register is full.
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv(41)
+#    Time: 170 ps  Iteration: 0  Instance: /shift_reg_64_bit_tb
+# Break in Module shift_reg_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv line 41
+# Compile of shift_reg_64_bit_tb.sv was successful.
+vsim -gui work.shift_reg_64_bit_tb
+# End time: 15:19:06 on Apr 06,2024, Elapsed time: 0:09:04
 # Errors: 0, Warnings: 2
-# vsim -gui work.single_port_sync_ram_tb 
-# Start time: 11:58:10 on Apr 03,2024
+# vsim -gui work.shift_reg_64_bit_tb 
+# Start time: 15:19:06 on Apr 06,2024
 # Loading sv_std.std
-# Loading work.single_port_sync_ram_tb
-# Loading work.single_port_sync_ram
-add wave -position insertpoint sim:/single_port_sync_ram_tb/dut/*
+# Loading work.shift_reg_64_bit_tb
+# Loading work.shift_reg_64_bit
+add wave -position insertpoint sim:/shift_reg_64_bit_tb/dut/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
-#           Attempting to use alternate WLF file "./wlft6qx49z".
+#           Attempting to use alternate WLF file "./wlft8b92w2".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft6qx49z
+#           Using alternate file: ./wlft8b92w2
 run -all
-# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv(70)
-#    Time: 70 ps  Iteration: 0  Instance: /single_port_sync_ram_tb
-# Break in Module single_port_sync_ram_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/single_port_sync_ram_tb.sv line 70
-# Compile of core.sv failed with 1 errors.
+# Register is full.
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv(49)
+#    Time: 330 ps  Iteration: 0  Instance: /shift_reg_64_bit_tb
+# Break in Module shift_reg_64_bit_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/shift_reg_64_bit_tb.sv line 49
+# Compile of core.sv failed with 8 errors.
+# Compile of core.sv was successful.
+# Compile of core.sv was successful.
+# Compile of core_tb.sv failed with 1 errors.
+# Compile of core_tb.sv failed with 1 errors.
+# Compile of core_tb.sv was successful.
+vsim -gui work.core_tb
+# End time: 16:07:03 on Apr 06,2024, Elapsed time: 0:47:57
+# Errors: 0, Warnings: 2
+# vsim -gui work.core_tb 
+# Start time: 16:07:03 on Apr 06,2024
+# Loading sv_std.std
+# Loading work.core_tb
+# Loading work.core
+# Loading work.file_rom
+# Loading work.shift_reg_64_bit
+# Loading work.conflict_table
+# Loading work.lfsr_64_bit
+# Loading work.single_port_sync_ram
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv(11): [PCDPC] - Port size (12) does not match connection size (1) for port 'out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv(8).
+#    Time: 0 ps  Iteration: 0  Instance: /core_tb/dut File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv
+# Compile of single_port_sync_ram.sv was successful.
+vsim -gui work.core_tb
+# End time: 16:07:47 on Apr 06,2024, Elapsed time: 0:00:44
+# Errors: 0, Warnings: 1
+# vsim -gui work.core_tb 
+# Start time: 16:07:47 on Apr 06,2024
+# Loading sv_std.std
+# Loading work.core_tb
+# Loading work.core
+# Loading work.file_rom
+# Loading work.shift_reg_64_bit
+# Loading work.conflict_table
+# Loading work.lfsr_64_bit
+# Loading work.single_port_sync_ram
+# ** Warning: (vsim-3015) C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv(11): [PCDPC] - Port size (12) does not match connection size (1) for port 'out'. The port definition is at: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv(8).
+#    Time: 0 ps  Iteration: 0  Instance: /core_tb/dut File: C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/core.sv
+add wave -position insertpoint sim:/core_tb/dut/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlft7tv671".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft7tv671
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv(22)
+#    Time: 200 ps  Iteration: 0  Instance: /core_tb
+# Break in Module core_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv line 22
+add wave -position insertpoint sim:/core_tb/dut/SHIFT_REG/*
 quit -sim
-# End time: 12:08:27 on Apr 03,2024, Elapsed time: 0:10:17
-# Errors: 0, Warnings: 2
-# Compile of core.sv failed with 5 errors.
-# Compile of core.sv failed with 5 errors.
-# Compile of core.sv failed with 16 errors.
-# Compile of core.sv failed with 9 errors.
-# Compile of core.sv failed with 8 errors.
-# Compile of core.sv failed with 5 errors.
-# Compile of core.sv failed with 7 errors.
-# Compile of core.sv failed with 11 errors.
-# Compile of core.sv failed with 1 errors.
-# Compile of core.sv failed with 8 errors.
-# Compile of core.sv failed with 1 errors.
+# End time: 16:10:16 on Apr 06,2024, Elapsed time: 0:02:29
+# Errors: 0, Warnings: 3
