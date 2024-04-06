@@ -1,0 +1,14 @@
+module lfsr_64_bit
+  ( input 	  clk,
+    input 	  cs,
+    input 	  rst,
+    input [63:0]  data_in,
+    output [63:0] data_out
+  );
+
+  reg [63:0] shift_reg;
+
+  always @ (posedge clk) begin
+    if (rst) // Active HIGH rst
+	shift_reg [63:0] <= 'hz;
+    else if (

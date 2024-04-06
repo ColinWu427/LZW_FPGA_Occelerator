@@ -1,0 +1,46 @@
+module shift_reg_64_bit_tb;
+
+  // Inputs
+  reg clk = 0;
+  reg [7:0] data_in;
+  reg shift;
+
+  // Outputs
+  wire [63:0] data_out;
+  wire reg_full;
+
+  // Instantiate the shift_reg_64_bit module
+  shift_reg_64_bit dut (
+    .clk(clk),
+    .data_in(data_in),
+    .shift(shift),
+    .data_out(data_out),
+    .reg_full(reg_full)
+  );
+
+  // Clock generation
+  always #5 clk = ~clk;
+
+  // Stimulus
+  initial begin
+    // Initialize inputs
+    data_in = 8'hFF;
+    shift = 0;
+
+    // Apply shifting for 16 clock cycles
+    repeat (16) begin
+      #10;
+      shift = 1;
+    end
+
+    // Wait for reg_full to be asserted
+    repeat (10) begin
+      #10;
+      if (reg_full) begin
+        $display("Register is full.");
+        $stop;
+      end
+    end
+  end
+
+endmodule
