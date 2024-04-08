@@ -18,7 +18,7 @@ module core_tb;
   always #5 clk = ~clk;
 
   initial begin
-    #400
+    #2000
     $stop;
   end
 

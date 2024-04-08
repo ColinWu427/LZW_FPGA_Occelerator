@@ -25,11 +25,11 @@ module shift_reg_64_bit
 	shift_reg[23:16] <= shift_reg[31:24];
 	shift_reg[15:8] <= shift_reg[23:16];
 	shift_reg[7:0] <= shift_reg[15:8];
-	if (num_bytes < 8)
+	if (num_bytes < 7)
 	  num_bytes = num_bytes + 1;
     end
   end
     
-  assign reg_full = (num_bytes == 8) ? 1'b1 : 1'b0;
+  assign reg_full = (num_bytes >= 7) ? 1'b1 : 1'b0;
   assign data_out = shift_reg;
 endmodule 

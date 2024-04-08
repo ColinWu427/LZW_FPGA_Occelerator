@@ -21,7 +21,8 @@ module file_rom
 // -> ABBABBBABBA
 // -> 65 66 66 65 66 66 66 65 66 66 65
   initial begin
-    entry_counter <= 12'b111111111111;
+    //entry_counter <= 12'b111111111111;
+    entry_counter <= 0;
     tmp_data <= 0;
     tmp_valid <= 0;
     tmp_eof <= 0;
@@ -63,11 +64,13 @@ module file_rom
 	tmp_valid <= valid_regs[entry_counter];
 	entry_counter <= entry_counter + 1;
     end
-    else
-	entry_counter <= entry_counter + 1;
+//    else
+	//entry_counter <= entry_counter + 1;
   end
 
-  assign data_out = tmp_data;
-  assign valid = tmp_valid;
-  assign eof = tmp_eof
+/*  assign data_out = tmp_data;
+  assign valid = tmp_valid;*/
+  assign data_out = valid_regs{entry_counter] ? mem[entry_counter] : 0;
+  assign valid = valid_regs[entry_counter];
+  assign eof = tmp_eof;
 endmodule 

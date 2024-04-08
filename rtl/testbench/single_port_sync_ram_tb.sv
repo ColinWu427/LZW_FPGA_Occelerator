@@ -40,27 +40,35 @@ module single_port_sync_ram_tb();
     we = 0;
 
     // Wait for a few cycles
-    #10;
+    #5;
 
     // Write data to memory
-    addr = 256;
-    data_in = 32'hABCDE123;
+    addr = 12'h483;
+    data_in = 64'h0000000000004241;
+    #20;
     cs = 1;
     we = 1;
     #10;
 
+    addr = 12'h485;
+    data_in = 64'h0000000000004242;
+    #10;
+    addr = 12'h285;
+    data_in = 64'h0000000000004142;
+    #10;
+
     // Read data from memory
-    addr = 256;
+    addr = 12'h257;
     cs = 1;
     we = 0;
     #10;
-    addr = 1;
+    addr = 12'h483;
     #10
-    addr = 10;
+    addr = 12'h485;
+    #10
+    addr = 12'h285;
     #10
     addr = 63;
-    #10
-    addr = 257;
     cs = 0;
 
     // Wait for some more cycles

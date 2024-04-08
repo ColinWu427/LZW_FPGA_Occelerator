@@ -34,14 +34,14 @@ module conflict_table
 */
 
 // Match wires
-  assign  match_wires[7] = (data == mem_data[7]) ? 1'b1 : 1'b0;
-  assign  match_wires[6] = (data == mem_data[6]) ? 1'b1 : 1'b0;
-  assign  match_wires[5] = (data == mem_data[5]) ? 1'b1 : 1'b0;
-  assign  match_wires[4] = (data == mem_data[4]) ? 1'b1 : 1'b0;
-  assign  match_wires[3] = (data == mem_data[3]) ? 1'b1 : 1'b0;
-  assign  match_wires[2] = (data == mem_data[2]) ? 1'b1 : 1'b0;
-  assign  match_wires[1] = (data == mem_data[1]) ? 1'b1 : 1'b0;
-  assign  match_wires[0] = (data == mem_data[0]) ? 1'b1 : 1'b0;
+  assign  match_wires[7] = (data == mem_data[7]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[6] = (data == mem_data[6]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[5] = (data == mem_data[5]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[4] = (data == mem_data[4]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[3] = (data == mem_data[3]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[2] = (data == mem_data[2]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[1] = (data == mem_data[1]) & data != 0 ? 1'b1 : 1'b0;
+  assign  match_wires[0] = (data == mem_data[0]) & data != 0 ? 1'b1 : 1'b0;
 
 // Encoder logic
   assign encoder_out[2] = encoder_in[4] | encoder_in[5] | encoder_in[6] | encoder_in[7];
@@ -75,20 +75,18 @@ module conflict_table
     mem_data[0] <= 'h0;
   end
 
-// Writing entry into conflict table
   always @ (posedge clk) begin
+// Writing entry into conflict table
     if (cs & we) begin
 	mem_data[counter] <= data;
 	mem_hash[counter] <= hash_in;
 	if (counter != 3'b111)
 	  counter <= counter + 1;
     end
-  end
-
 // Getting entry from conflict table
-  always @ (posedge clk) begin
-    if (cs & !we)
+    else if (cs & !we)
 	tmp_hash <= mem_hash[encoder_out];
+    end
   end
 	  	
 // Assert match when any of the data cells match the input
