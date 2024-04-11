@@ -10,6 +10,7 @@ module single_port_sync_ram_tb();
   reg [ADDR_WIDTH-1:0] addr;
   reg [DATA_WIDTH-1:0] data_in;
   wire [DATA_WIDTH-1:0] data_out;
+  wire [ADDR_WIDTH-1:0] map_out;
   reg cs, we;
   wire valid;
 
@@ -23,6 +24,7 @@ module single_port_sync_ram_tb();
     .addr(addr),
     .data_in(data_in),
     .data_out(data_out),
+    .map_out(map_out),
     .cs(cs),
     .we(we),
     .valid(valid)

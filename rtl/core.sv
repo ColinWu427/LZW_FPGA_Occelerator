@@ -20,12 +20,16 @@ module core
   wire eof;
 // String being encoded
   reg [63:0] str;
+// Output buffer controlled by mux
+  reg output_sel;
 // Cycle counter for LFSR (may need to be longer if more cycles are needed)
   reg cycle_count;
 // Variable to mark when we have a valid hash from the LFSR
   reg hash_valid;
 // Register to store the most recent successful encode of str
   reg [11:0] prev_encode;
+// Register to store the most recent successful map of str
+  reg [11:0] prev_map;
 // Register to delay ram 2 cycles while waiting for hash during RAM_SEARCH
   reg [1:0] ram_hash_cycles;
 // Register to delay ram 1 cycles while waiting for ram_valid during HASH_COLL
@@ -66,8 +70,10 @@ module core
   reg ct_cs, ct_we, ct_rst, ct_full;
   wire [DATA_WIDTH-1:0] ct_data;
   reg [HASH_WIDTH-1:0] ct_hash_in;
+  reg [HASH_WIDTH-1:0] ct_map_in;
   wire match;
   wire [HASH_WIDTH-1:0] ct_hash_out;
+  wire [HASH_WIDTH-1:0] ct_map_out;
 
  conflict_table #(DEPTH, DATA_WIDTH, HASH_WIDTH) CT (
     .clk(clk),
@@ -78,6 +84,8 @@ module core
     .data(ct_data),
     .hash_in(ct_hash_in),
     .hash_out(ct_hash_out),
+    .map_in(ct_map_in),
+    .map_out(ct_map_out),
     .ct_full(ct_full)
   );
 
@@ -106,6 +114,8 @@ module core
   reg [11:0] ram_addr;
   wire [63:0] ram_data_in;
   wire [63:0] ram_data_out;
+  wire [11:0] ram_map_out;
+  wire [11:0] ram_counter_out;
   reg ram_cs, ram_we, ram_valid;
 
   single_port_sync_ram RAM (
@@ -113,6 +123,8 @@ module core
     .addr(ram_addr),
     .data_in(ram_data_in),
     .data_out(ram_data_out),
+    .map_out(ram_map_out),
+    .counter_out(ram_counter_out),
     .cs(ram_cs),
     .we(ram_we),
     .valid(ram_valid)
@@ -120,12 +132,13 @@ module core
 
 // Assign the data input of ram to our string
   assign ram_data_in = str;
+  assign ct_map_in = ram_counter_out;
 
 // Core Loop		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   initial begin
     state <= LOAD;
-    next_state <= FETCH;
     prev_encode <= 0;
+    prev_map <= 0;
     ram_hash_cycles = 2;
 
     num_char <= 0;
@@ -156,28 +169,23 @@ end
 // -> the value is in the range 0-255 which are not an allowable hash
 // -> those addresses are reserved for single ASCII and matching will need to be handled separately
 // else Once we have an allowed hash, assert hash_valid which will take us into RAM_SEARCH on the next clk cycle
-		if (lfsr_state == 0) begin
-		  lfsr_cs <= 1;
-		  lfsr_rst <= 1;
-		  hash_valid <= 0;
-		end
-    		else if (lfsr_data_out[11:8] != 0'b000) begin
-		  lfsr_cs <= 0;
-		  hash_valid <= 1;
-		end
+    if (lfsr_state == 0) begin
+	lfsr_cs <= 1;
+	lfsr_rst <= 1;
+	hash_valid <= 0;
+    end
+    else if (lfsr_data_out[11:8] != 0'b000) begin
+	lfsr_cs <= 0;
+	hash_valid <= 1;
+    end
   end
 
 
   always @ (posedge clk) begin
     case (state)
 	LOAD: begin
-// If the ROM is invalid (off or eof) and we are not at eof, turn on the ROM without shifting
-		/*if (!rom_valid && !eof) begin
-		  rom_cs <= 1;
-		  shift <= 1;
-		end*/
 // Once ROM is valid, as keep shifting in bits until our shift register is full
-		/*else*/ if (!sr_full && rom_valid) begin
+		if (!sr_full && rom_valid) begin
 		  rom_cs <= 1;
 		  shift <= 1;
 		end
@@ -195,28 +203,6 @@ end
 		end
 	    end
 	FETCH: begin
-/*
-		if (sr_cycles != 0) begin
-		  shift <= 1;
-		  rom_cs <= 1;
-		end
-		else if (!sr_full & !rom_valid & !shift) begin
-		  shift <= 1;
-		  rom_cs <= 1;
-		end
-		else if ((!sr_full & rom_valid) || (sr_cycles != 0)) begin
-		  shift <= 1;
-		  rom_cs <= 1;
-		end
-		else if (!rom_valid) begin
-		  rom_cs <= 1;
-		  shift <= 0; 
-		end
-		else begin
-		  shift <= 0;
-		  rom_cs <= 0;
-		end
-*/
 		out <= 'hz;
 		ram_we <= 0;
 		ct_we <= 0;
@@ -241,6 +227,7 @@ end
 		    //next_state <= STR_INC;
 		    state <= STR_INC;
 		    prev_encode <= ct_hash_out;
+		    prev_map <= ct_map_out;
 		  end
 // else if there's more file left and we don't have a match in the conflict table and the hash is ready, change state to RAM_SEARCH
 		  else if (ct_cs & !match & hash_valid)
@@ -253,28 +240,6 @@ end
 		  	ram_addr <= str[11:0];
 		    ram_cs <= 1;
 		end
-
-// If LFSR is in state 0 (reset) take it out of reset and use cs to cycle it
-// else If the top 3 bits of the LFSR output are all 0 keep cycling
-// -> the value is in the range 0-255 which are not an allowable hash
-// -> those addresses are reserved for single ASCII and matching will need to be handled separately
-// else Once we have an allowed hash, assert hash_valid which will take us into RAM_SEARCH on the next clk cycle
-/*		if (lfsr_state == 0) begin
-		  lfsr_cs <= 1;
-		  lfsr_rst <= 1;
-		  hash_valid <= 0;
-		end
-    		else if (lfsr_data_out[11:8] != 0'b000) begin
-		  lfsr_cs <= 0;
-		  hash_valid <= 1;
-		end
-    		else begin
-		  lfsr_cs <= 1;
-		end*/
-
-// If the shift register is not full (we don't have the next 8 bytes) we want to keep shifting in more bytes until it gets full
-// if the shift register cycles reg is not zero, continue cycling until it is
-
 	    end
 	RAM_SEARCH: begin
 // Wait until we have a valid hash from our lfsr
@@ -295,6 +260,7 @@ end
 		  //next_state <= STR_INC;
 		    state <= STR_INC;
 		    prev_encode <= ram_addr;
+		    prev_map <= ram_map_out;
 		  end
 // else if the data at our hash is not valid, write the data into RAM and set our string back to 1 character and increment the bit counter
 // -> output the previous encoded value
@@ -351,7 +317,6 @@ end
 		hash_valid <= 0;
 		ram_we <= 0;
 		ct_we <= 0;
-		//next_state <= FETCH;
 		state <= FETCH;
 		ram_hash_cycles <= 2;
 		ram_valid_cycles <= 1;
@@ -365,11 +330,13 @@ end
 		hash_valid <= 0;
 		ram_we <= 0;
 		ct_we <= 0;
-		//next_state <= FETCH;
 		state <= LOAD;
-		out <= prev_encode;
 		ram_hash_cycles <= 2;
 		ram_valid_cycles <= 1;
+		if (output_sel)
+		  out <= prev_map;
+		else
+		  out <= prev_encode;
 	    end
     endcase
   end
@@ -383,22 +350,38 @@ end
 // Str MUX		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   always @ (/*posedge clk*/ num_char or next_8bytes) begin
     case (num_char)
-	3'd0:
+	3'd0: begin
 	  str <= {56'h00_00_00_00_00_00_00, next_8bytes[7:0]};
-	3'd1:
+	  output_sel <= 0;
+	end
+	3'd1: begin
 	  str <= {48'h00_00_00_00_00_00, next_8bytes[15:0]};
-	3'd2:
+	  output_sel <= 0;
+	end
+	3'd2: begin
 	  str <= {40'h00_00_00_00_00, next_8bytes[23:0]};
-	3'd3:
+	  output_sel <= 1;
+	end
+	3'd3: begin
 	  str <= {32'h00_00_00_00, next_8bytes[31:0]};
-	3'd4:
+	  output_sel <= 1;
+	end
+	3'd4: begin
 	  str <= {24'h00_00_00, next_8bytes[39:0]};
-	3'd5:
+	  output_sel <= 1;
+	end
+	3'd5: begin
 	  str <= {16'h00_00, next_8bytes[47:0]};
-	3'd6:
+	  output_sel <= 1;
+	end
+	3'd6: begin
 	  str <= {8'h00, next_8bytes[56:0]};
-	3'd7:
+	  output_sel <= 1;
+	end
+	3'd7: begin
 	  str <= next_8bytes;
+	  output_sel <= 1;
+	end
     endcase
   end
 

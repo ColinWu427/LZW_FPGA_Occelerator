@@ -45,6 +45,7 @@ module single_port_sync_ram_tb();
     // Write data to memory
     addr = 12'h483;
     data_in = 64'h0000000000004241;
+    #20;
     cs = 1;
     we = 1;
     #10;

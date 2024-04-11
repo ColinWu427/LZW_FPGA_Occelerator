@@ -10,13 +10,17 @@ module conflict_table
     output match,
     input [DATA_WIDTH-1:0] data,
     input [HASH_WIDTH-1:0] hash_in,
+    input [HASH_WIDTH-1:0] map_in,
     output [HASH_WIDTH-1:0] hash_out,
+    output [HASH_WIDTH-1:0] map_out,
     output ct_full
   );
 
   reg [HASH_WIDTH-1:0] tmp_hash;
+  reg [HASH_WIDTH-1:0] tmp_map;
   reg [DATA_WIDTH-1:0] mem_data [DEPTH];
   reg [HASH_WIDTH-1:0] mem_hash [DEPTH];
+  reg [HASH_WIDTH-1:0] mem_map [DEPTH];
   wire [DEPTH-1:0] match_wires;
   reg [HASH_WIDTH-1:0] counter;
   wire [7:0] encoder_in;
@@ -80,13 +84,14 @@ module conflict_table
     if (cs & we) begin
 	mem_data[counter] <= data;
 	mem_hash[counter] <= hash_in;
+	mem_map[counter] <= map_in;
 	if (counter != 3'b111)
 	  counter <= counter + 1;
     end
 // Getting entry from conflict table
     else if (cs & !we)
 	tmp_hash <= mem_hash[encoder_out];
-    end
+	tmp_map <= mem_map[encoder_out];
   end
 	  	
 // Assert match when any of the data cells match the input
@@ -95,6 +100,8 @@ module conflict_table
   assign encoder_in[7:0] = match_wires[7:0];
 // Hash output
   assign hash_out = cs & !we ? tmp_hash : 'hz;
+// Map output
+  assign map_out = cs & !we ? tmp_map : 'hz;
 // If the counter is at 8, the conflict table is full
   assign ct_full = (counter == 3'b111) ? 1 : 0;
 
