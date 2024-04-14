@@ -1,0 +1,63 @@
+module cam_cell_array_tb;
+
+    // Parameters
+    parameter CAM_WIDTH = 8;
+    parameter NUM_CELL = 4;
+
+    // Signals
+    logic clk, rst, en;
+    logic [CAM_WIDTH-1:0] search_key;
+    logic [$clog2(NUM_CELL)-1:0] cam_out;
+    logic cam_full, match_found;
+
+    // Instantiate the cam_cell_array module
+    cam_cell_array #(
+        .CAM_WIDTH(CAM_WIDTH),
+        .NUM_CELL(NUM_CELL)
+    ) dut (
+        .clk(clk),
+        .rst(rst),
+        .en(en),
+        .search_key(search_key),
+        .cam_out(cam_out),
+        .cam_full(cam_full),
+        .match_found(match_found)
+    );
+
+    // Clock generation
+    always #5 clk = ~clk;
+
+    // Reset generation
+    initial begin
+        rst = 1'b1;
+        #10;
+        rst = 1'b0;
+    end
+
+    // Test stimulus
+    initial begin
+        // Wait for a few clock cycles
+        #100;
+
+        // Enable the module
+        en = 1'b1;
+
+        // Send some search keys
+        search_key = 8'hFF; // Example search key
+        #20;
+        search_key = 8'hA5; // Another example search key
+        #20;
+        // Add more search keys as needed...
+
+        // End simulation
+        #100;
+        $stop;
+    end
+
+    // Monitor
+    always @(posedge clk) begin
+        // Print out important signals
+        $display("At time %t: cam_out = %h, cam_full = %b, match_found = %b", $time, cam_out, cam_full, match_found);
+    end
+
+endmodule
