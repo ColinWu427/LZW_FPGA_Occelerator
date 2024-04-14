@@ -173,10 +173,7 @@ end
 	lfsr_cs <= 0;
 	hash_valid <= 1;
     end
-  end
 
-
-  always @ (posedge clk) begin
     case (state)
 	LOAD: begin
 // Once ROM is valid, as keep shifting in bits until our shift register is full
