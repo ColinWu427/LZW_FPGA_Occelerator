@@ -1,2 +1,30 @@
 # Compile of core.sv was successful.
 # Compile of core.sv was successful.
+# Compile of core.sv was successful.
+# Compile of conflict_table.sv was successful.
+vsim -gui work.core_tb
+# vsim -gui work.core_tb 
+# Start time: 11:17:56 on Apr 14,2024
+# Loading sv_std.std
+# Loading work.core_tb
+# Loading work.core
+# Loading work.file_rom
+# Loading work.shift_reg_64_bit
+# Loading work.conflict_table
+# Loading work.lfsr_64_bit
+# Loading work.single_port_sync_ram
+add wave -position insertpoint sim:/core_tb/dut/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ninim  Hostname: LAPTOP-MKR8B5BP  ProcessID: 32184
+#           Attempting to use alternate WLF file "./wlfthf8xv5".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlfthf8xv5
+add wave -position insertpoint sim:/core_tb/dut/CT/*
+add wave -position insertpoint sim:/core_tb/dut/LFSR/*
+add wave -position insertpoint sim:/core_tb/dut/RAM/*
+add wave -position insertpoint sim:/core_tb/dut/ROM/*
+add wave -position insertpoint sim:/core_tb/dut/SHIFT_REG/*
+run -all
+# ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv(22)
+#    Time: 2 ns  Iteration: 0  Instance: /core_tb
+# Break in Module core_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv line 22

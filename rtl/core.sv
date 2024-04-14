@@ -164,12 +164,12 @@ end
 // -> the value is in the range 0-255 which are not an allowable hash
 // -> those addresses are reserved for single ASCII and matching will need to be handled separately
 // else Once we have an allowed hash, assert hash_valid which will take us into RAM_SEARCH on the next clk cycle
-    if (lfsr_state == 0) begin
+    if ((lfsr_state == 0) && ((state != STR_INC) || (state != STR_DEC))) begin
 	lfsr_cs <= 1;
 	lfsr_rst <= 1;
 	hash_valid <= 0;
     end
-    else if (lfsr_data_out[11:8] != 0'b000) begin
+    else if ((lfsr_data_out[11:8] != 0'b0000) && ((state != STR_INC) || (state != STR_DEC))) begin
 	lfsr_cs <= 0;
 	hash_valid <= 1;
     end
