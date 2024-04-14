@@ -38,14 +38,14 @@ module conflict_table
 */
 
 // Match wires
-  assign  match_wires[7] = ((data == mem_data[7]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[6] = ((data == mem_data[6]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[5] = ((data == mem_data[5]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[4] = ((data == mem_data[4]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[3] = ((data == mem_data[3]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[2] = ((data == mem_data[2]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[1] = ((data == mem_data[1]) & (data != 0)) ? 1'b1 : 1'b0;
-  assign  match_wires[0] = ((data == mem_data[0]) & (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[7] = ((data == mem_data[7]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[6] = ((data == mem_data[6]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[5] = ((data == mem_data[5]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[4] = ((data == mem_data[4]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[3] = ((data == mem_data[3]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[2] = ((data == mem_data[2]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[1] = ((data == mem_data[1]) && (data != 0)) ? 1'b1 : 1'b0;
+  assign  match_wires[0] = ((data == mem_data[0]) && (data != 0)) ? 1'b1 : 1'b0;
 
 // Encoder logic
   assign encoder_out[2] = encoder_in[4] | encoder_in[5] | encoder_in[6] | encoder_in[7];
@@ -54,34 +54,30 @@ module conflict_table
 
   initial begin
     counter <= 0;
-    mem_data[7] <= 'h0;
-    mem_data[6] <= 'h0;
-    mem_data[5] <= 'h0;
-    mem_data[4] <= 'h0;
-    mem_data[3] <= 'h0;
-    mem_data[2] <= 'h0;
-    mem_data[1] <= 'h0;
-    mem_data[0] <= 'h0;
+    mem_data[7] <= 0;
+    mem_data[6] <= 0;
+    mem_data[5] <= 0;
+    mem_data[4] <= 0;
+    mem_data[3] <= 0;
+    mem_data[2] <= 0;
+    mem_data[1] <= 0;
+    mem_data[0] <= 0;
   end
 
-// Reset for counter
   always @ (posedge clk) begin
     if (!rst) begin // Active LOW reset
 	counter <= 0;
-	mem_data[7] <= 'h0;
-	mem_data[6] <= 'h0;
-	mem_data[5] <= 'h0;
-	mem_data[4] <= 'h0;
-	mem_data[3] <= 'h0;
-	mem_data[2] <= 'h0;
-	mem_data[1] <= 'h0;
-	mem_data[0] <= 'h0;
+	mem_data[7] <= 0;
+	mem_data[6] <= 0;
+	mem_data[5] <= 0;
+	mem_data[4] <= 0;
+	mem_data[3] <= 0;
+	mem_data[2] <= 0;
+	mem_data[1] <= 0;
+	mem_data[0] <= 0;
     end
-  end
-
-  always @ (posedge clk) begin
 // Writing entry into conflict table
-    if (cs & we & rst) begin
+    else if (cs & we & rst) begin
 	mem_data[counter] <= data;
 	mem_hash[counter] <= hash_in;
 	mem_map[counter] <= map_in;
