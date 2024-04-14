@@ -70,7 +70,7 @@ module file_rom
 
 /*  assign data_out = tmp_data;
   assign valid = tmp_valid;*/
-  assign data_out = valid_regs{entry_counter] ? mem[entry_counter] : 0;
+  assign data_out = valid_regs[entry_counter] ? mem[entry_counter] : 0;
   assign valid = valid_regs[entry_counter];
   assign eof = tmp_eof;
 endmodule 

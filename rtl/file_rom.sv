@@ -1,7 +1,7 @@
 module file_rom
-  # (parameter ADDR_WIDTH = 12,
-     parameter DATA_WIDTH = 64,
-     parameter DEPTH = 4096
+  # (parameter ADDR_WIDTH = 7,
+     parameter DATA_WIDTH = 8,
+     parameter DEPTH = 128
     )
 
   ( input 		   clk,

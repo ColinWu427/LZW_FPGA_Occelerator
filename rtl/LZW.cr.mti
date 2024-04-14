@@ -12,13 +12,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	core_tb
 
-} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/file_rom.sv}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module file_rom
-
-Top level modules:
-	file_rom
-
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/cam_cell_array.sv} {0 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/cam_cell_array.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module cam_cell_array
@@ -83,18 +76,18 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	shift_reg_64_bit_tb
 
-} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/conflict_table.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/conflict_table.sv}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module conflict_table
-
-Top level modules:
-	conflict_table
-
 } {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/file_rom_tb.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module file_rom_tb
 
 Top level modules:
 	file_rom_tb
+
+} {} {}} {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/conflict_table.sv} {1 {vlog -work work -sv -stats=none {C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/conflict_table.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module conflict_table
+
+Top level modules:
+	conflict_table
 
 } {} {}}
