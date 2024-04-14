@@ -169,7 +169,7 @@ end
 	lfsr_rst <= 1;
 	hash_valid <= 0;
     end
-    else if ((lfsr_data_out[11:8] != 0'b0000) && ((state != STR_INC) || (state != STR_DEC))) begin
+    else if ((lfsr_data_out[11:8] != 4'b0000) && ((state != STR_INC) || (state != STR_DEC))) begin
 	lfsr_cs <= 0;
 	hash_valid <= 1;
     end

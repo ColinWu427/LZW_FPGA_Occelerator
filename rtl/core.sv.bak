@@ -159,10 +159,6 @@ module core
 end
 
   always @ (posedge clk) begin
-
-
-
-  always @ (posedge clk) begin
 // If LFSR is in state 0 (reset) take it out of reset and use cs to cycle it
 // else If the top 3 bits of the LFSR output are all 0 keep cycling
 // -> the value is in the range 0-255 which are not an allowable hash
