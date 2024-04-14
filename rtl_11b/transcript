@@ -101,3 +101,6 @@ run -all
 # ** Note: $stop    : C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv(22)
 #    Time: 2 ns  Iteration: 0  Instance: /core_tb
 # Break in Module core_tb at C:/Users/ninim/OneDrive - Georgia Institute of Technology/Documents/Year 4 Semester 1/ECE 4871/rtl/testbench/core_tb.sv line 22
+# Compile of bram_tb.sv failed with 2 errors.
+# Compile of bram.sv failed with 1 errors.
+# Compile of bram.sv failed with 1 errors.
