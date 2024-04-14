@@ -8,19 +8,18 @@ module core
     output reg [HASH_WIDTH-1:0] out
   );
 
-  parameter LOAD = 0, FETCH = 1, RAM_SEARCH = 2, HASH_COLL = 3, COMPLETE = 4, STR_INC = 5, STR_DEC = 6;
+  parameter LOAD = 0, FETCH = 1, RAM_SEARCH = 2, HASH_COLL = 3, COMPLETE = 4, STR_INC = 5, STR_DEC = 6, ENC_FAIL = 7;
 
   reg [2:0] state;
-  reg [2:0] next_state;
 // Number of characters in current string
   reg [2:0] num_char;
 // Number of shift register cycles needed
   reg [2:0] sr_cycles;
 // End of file tracker to show when the end of a file has been reached
   wire eof;
-// String being encoded
+// Current string being encoded
   reg [63:0] str;
-// Output buffer controlled by mux
+// Output mux selector
   reg output_sel;
 // Cycle counter for LFSR (may need to be longer if more cycles are needed)
   reg cycle_count;
@@ -159,10 +158,6 @@ module core
     shift <= 0;
 end
 
-/*  always @ (posedge clk) begin
-    state <= next_state;
-  end */
-
   always @ (posedge clk) begin
 // If LFSR is in state 0 (reset) take it out of reset and use cs to cycle it
 // else If the top 3 bits of the LFSR output are all 0 keep cycling
@@ -209,11 +204,9 @@ end
 		ct_rst <= 1;
 // if there's no more file to encode change state to complete
 		if (eof & (next_8bytes == 0))
-		  //next_state <= COMPLETE;
 		  state <= COMPLETE;
 // else if the next_8bytes shift register isn't full, wait for it to be full
 		else if (!sr_full)
-		  //next_state <= FETCH;
 		  state <= FETCH;
 // else if we need to cycle our shift register, wait until the cycles are finished
 		else if (sr_cycles != 0) begin
@@ -224,14 +217,12 @@ end
 		else begin
 		  ct_cs <= 1;
 		  if (ct_cs & match & (num_char < 7)) begin
-		    //next_state <= STR_INC;
 		    state <= STR_INC;
 		    prev_encode <= ct_hash_out;
 		    prev_map <= ct_map_out;
 		  end
 // else if there's more file left and we don't have a match in the conflict table and the hash is ready, change state to RAM_SEARCH
 		  else if (ct_cs & !match & hash_valid)
-		    //next_state <= RAM_SEARCH;
 		    state <= RAM_SEARCH;
 // If we only have a single character, we don't want to use the LFSR hash we want to use the character itself as the address
 		    if (num_char != 0)
@@ -257,7 +248,6 @@ end
 // -> go back to FETCH state
 // -> set our previous encode to the address we just found
 		  else if (ram_data_out == str & num_char < 7 & ram_valid) begin
-		  //next_state <= STR_INC;
 		    state <= STR_INC;
 		    prev_encode <= ram_addr;
 		    prev_map <= ram_map_out;
@@ -267,12 +257,10 @@ end
 // -> go back to FETCH state
 		  else if (!ram_valid) begin
 		    ram_we <= 1;
-		  //next_state <= STR_DEC;
 		    state <= STR_DEC;
 		  end
 // else if the data at our hash is valid but doesnt match our string, we have a hash collision :(
 		  else if (ram_valid & ram_data_out != str)
-		  //next_state <= HASH_COLL;
 		    state <= HASH_COLL;
 		end
 		else
@@ -297,17 +285,18 @@ end
 // -> output the previous encoded value
 		else if (!ram_valid) begin
 		  ram_we <= 1;
-		  //next_state <= STR_DEC;
 		  state <= STR_DEC;
 // if the conflict table is not full, write our new hash and str to it
 		  if (!ct_full) begin
 		    ct_hash_in <= ram_addr;
 		    ct_we <= 1;
 		  end
+		  else if (ct_full) begin
+		    state <= ENC_FAIL;
+		  end
 		end
 	    end
 	COMPLETE: begin
-		//next_state <= COMPLETE;
 		state <= COMPLETE;
 	    end
 // Intermediary state for adding another character to the string without disturbing writes
@@ -338,6 +327,10 @@ end
 		else
 		  out <= prev_encode;
 	    end
+	ENC_FAIL: begin
+		state <= ENC_FAIL;
+		out <= 'hz;
+	    end
     endcase
   end
 
@@ -347,8 +340,8 @@ end
 // RAM write enable should be 0 going from FETCH to RAM_SEARCH
 // Be careful of transitions from writing to RAM back to fetch, check timings ensure this writes the correct data to RAM
 
-// Str MUX		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  always @ (/*posedge clk*/ num_char or next_8bytes) begin
+// Str+OUT MUX		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  always @ (num_char or next_8bytes) begin
     case (num_char)
 	3'd0: begin
 	  str <= {56'h00_00_00_00_00_00_00, next_8bytes[7:0]};

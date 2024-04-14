@@ -81,7 +81,7 @@ module conflict_table
 
   always @ (posedge clk) begin
 // Writing entry into conflict table
-    if (cs & we) begin
+    if (cs & we & rst) begin
 	mem_data[counter] <= data;
 	mem_hash[counter] <= hash_in;
 	mem_map[counter] <= map_in;
@@ -89,9 +89,10 @@ module conflict_table
 	  counter <= counter + 1;
     end
 // Getting entry from conflict table
-    else if (cs & !we)
+    else if (cs & !we & rst) begin
 	tmp_hash <= mem_hash[encoder_out];
 	tmp_map <= mem_map[encoder_out];
+    end
   end
 	  	
 // Assert match when any of the data cells match the input
@@ -100,6 +101,8 @@ module conflict_table
   assign encoder_in[7:0] = match_wires[7:0];
 // Hash output
   assign hash_out = cs & !we ? tmp_hash : 'hz;
+// Map output
+  assign map_out = cs & !we ? tmp_map : 'hz;
 // If the counter is at 8, the conflict table is full
   assign ct_full = (counter == 3'b111) ? 1 : 0;
 

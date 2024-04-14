@@ -52,6 +52,18 @@ module conflict_table
   assign encoder_out[1] = encoder_in[2] | encoder_in[3] | encoder_in[6] | encoder_in[7];
   assign encoder_out[0] = encoder_in[1] | encoder_in[3] | encoder_in[5] | encoder_in[7];
 
+  initial begin
+    counter <= 0;
+    mem_data[7] <= 'h0;
+    mem_data[6] <= 'h0;
+    mem_data[5] <= 'h0;
+    mem_data[4] <= 'h0;
+    mem_data[3] <= 'h0;
+    mem_data[2] <= 'h0;
+    mem_data[1] <= 'h0;
+    mem_data[0] <= 'h0;
+  end
+
 // Reset for counter
   always @ (posedge clk) begin
     if (!rst) begin // Active LOW reset
@@ -67,21 +79,9 @@ module conflict_table
     end
   end
 
-  initial begin
-    counter <= 0;
-    mem_data[7] <= 'h0;
-    mem_data[6] <= 'h0;
-    mem_data[5] <= 'h0;
-    mem_data[4] <= 'h0;
-    mem_data[3] <= 'h0;
-    mem_data[2] <= 'h0;
-    mem_data[1] <= 'h0;
-    mem_data[0] <= 'h0;
-  end
-
   always @ (posedge clk) begin
 // Writing entry into conflict table
-    if (cs & we) begin
+    if (cs & we & rst) begin
 	mem_data[counter] <= data;
 	mem_hash[counter] <= hash_in;
 	mem_map[counter] <= map_in;
@@ -89,9 +89,10 @@ module conflict_table
 	  counter <= counter + 1;
     end
 // Getting entry from conflict table
-    else if (cs & !we)
+    else if (cs & !we & rst) begin
 	tmp_hash <= mem_hash[encoder_out];
 	tmp_map <= mem_map[encoder_out];
+    end
   end
 	  	
 // Assert match when any of the data cells match the input
