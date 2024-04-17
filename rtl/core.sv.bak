@@ -1,5 +1,5 @@
 module core
-# ( parameter DEPTH = 8,
+# ( parameter DEPTH = 16,
     parameter DATA_WIDTH = 64,
     parameter HASH_WIDTH = 12 
   )
@@ -35,11 +35,10 @@ module core
   reg ram_valid_cycles;
 
 // File ROM		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  reg [11:0] rom_addr;
-  wire [63:0] rom_data_out;
+  wire [7:0] rom_data_out;
   reg rom_cs, rom_valid;
 
-  file_rom #(DEPTH, DATA_WIDTH, HASH_WIDTH) ROM (
+  file_rom ROM (
     .clk(clk),
     .data_out(rom_data_out),
     .cs(rom_cs),
@@ -169,7 +168,7 @@ end
 	lfsr_rst <= 1;
 	hash_valid <= 0;
     end
-    else if ((lfsr_data_out[11:8] != 0'b0000) && ((state != STR_INC) || (state != STR_DEC))) begin
+    else if ((lfsr_data_out[11:8] != 4'b0000) && ((state != STR_INC) || (state != STR_DEC))) begin
 	lfsr_cs <= 0;
 	hash_valid <= 1;
     end
@@ -209,17 +208,28 @@ end
 		else if (sr_cycles != 0) begin
 		  sr_cycles = sr_cycles - 1;
 		end
-// else if there's more file left and we have a match in the conflict table and there's not already 8 chars in str, add the next char to our string and reset the LFSR
+// else if there's more file left and we have a match in the conflict table if we aren't using the full next_8bytes, add the next char to our string and reset the LFSR
 // set the previous encode to our hash from the conflict table
 		else begin
 		  ct_cs <= 1;
-		  if (ct_cs & match & (num_char < 7)) begin
-		    state <= STR_INC;
-		    prev_encode <= ct_hash_out;
-		    prev_map <= ct_map_out;
+		  if (ct_cs & match) begin
+		    if (str != next_8bytes) begin
+			state <= STR_INC;
+			prev_encode <= ct_hash_out;
+			prev_map <= ct_map_out;
+		    end
+// if there we are using all of next_8bytes for our str and we are at eof, do a final writeback of our encoded value of our str
+		    else if (str == next_8bytes && eof) begin
+			state <= STR_DEC;
+			prev_encode <= ct_hash_out;
+			prev_map <= ct_map_out;
+		    end
+// NEED TO ADD LOGIC TO COVER CASE FOR WHEN WE'RE USING ALL OF NEXT_8BYTES AND NOT AT EOF... ALGORITHMIC PROBLEM
+		    else
+			state <= ENC_FAIL;
 		  end
 // else if there's more file left and we don't have a match in the conflict table and the hash is ready, change state to RAM_SEARCH
-		  else if (ct_cs & !match & hash_valid)
+		  else if (ct_cs & !match & hash_valid) begin
 		    state <= RAM_SEARCH;
 // If we only have a single character, we don't want to use the LFSR hash we want to use the character itself as the address
 		    if (num_char != 0)
@@ -227,6 +237,7 @@ end
 		    else
 		  	ram_addr <= str[11:0];
 		    ram_cs <= 1;
+		  end
 		end
 	    end
 	RAM_SEARCH: begin
@@ -241,13 +252,24 @@ end
 		    ram_hash_cycles <= ram_hash_cycles - 1;
 		    state <= RAM_SEARCH;
 		  end
-// if the RAM data at our hash is valid and matches the input and there's not already 8 chars in str add the next char to our string and reset the LFSR
+// if the RAM data at our hash is valid and matches the input and we're not already using all next_8bytes in str add the next char to our string and reset the LFSR
 // -> go back to FETCH state
 // -> set our previous encode to the address we just found
-		  else if (ram_data_out == str & num_char < 7 & ram_valid) begin
-		    state <= STR_INC;
-		    prev_encode <= ram_addr;
-		    prev_map <= ram_map_out;
+		  else if (ram_data_out == str & ram_valid) begin
+		    if (str != next_8bytes) begin
+			state <= STR_INC;
+			prev_encode <= ram_addr;
+			prev_map <= ram_map_out;
+		    end
+// if there we are using all of next_8bytes for our str and we are at eof, do a final writeback of our encoded value of our str
+		    else if (str == next_8bytes && eof) begin
+			state <= STR_DEC;
+			prev_encode <= ram_addr;
+			prev_map <= ram_map_out;
+		    end
+// NEED TO ADD LOGIC TO COVER CASE FOR WHEN WE'RE USING ALL OF NEXT_8BYTES AND NOT AT EOF... ALGORITHMIC PROBLEM
+		    else
+			state <= ENC_FAIL;
 		  end
 // else if the data at our hash is not valid, write the data into RAM and set our string back to 1 character and increment the bit counter
 // -> output the previous encoded value
